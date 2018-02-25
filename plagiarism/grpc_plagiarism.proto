@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+// Package name (~DNS)
+package plagiari.sm.grpc.plagiarism;
+
+// Plagiarism Service
+service Plagiarism {
+    // Endpoint Detect
+    rpc Detect(RequestDocument) returns (Notification) {};
+}
+
+// RequestDocument from Elasticsearch
+message RequestDocument {
+    // article id
+    int64 id = 1;
+}
+
+// Notification
+message Notification {
+    // success, error
+    string status   = 1;
+    // 200, 500
+    int32 code      = 2;
+    // message
+    string message  = 3;
+    // label
+    string label = 4;
+    // article id
+    int64 id = 5;
+}

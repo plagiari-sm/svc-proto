@@ -19,9 +19,11 @@ message RequestArticle {
 
 // RequestStream for Scrape in Streaming mode (ex. svc-listen)
 message RequestStream {
-    string feed     = 1;
-    string url      = 2;
-    int64 tweetID   = 3;
+    string feed         = 1;
+    string url          = 2;
+    int64 tweetId       = 3;
+    string lang         = 4;
+    string screenName   = 5;
 }
 
 // Content of the Scraped Article or Stream
