@@ -20,8 +20,9 @@ import fmt "fmt"
 import math "math"
 
 import (
+	client "github.com/micro/go-micro/client"
+	server "github.com/micro/go-micro/server"
 	context "golang.org/x/net/context"
-	grpc "google.golang.org/grpc"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -114,30 +115,38 @@ func init() {
 
 // Reference imports to suppress errors if they are not otherwise used.
 var _ context.Context
-var _ grpc.ClientConn
-
-// This is a compile-time assertion to ensure that this generated file
-// is compatible with the grpc package it is being compiled against.
-const _ = grpc.SupportPackageIsVersion4
+var _ client.Option
+var _ server.Option
 
 // Client API for Plagiarism service
 
 type PlagiarismClient interface {
 	// Endpoint Detect
-	Detect(ctx context.Context, in *RequestDocument, opts ...grpc.CallOption) (*Notification, error)
+	Detect(ctx context.Context, in *RequestDocument, opts ...client.CallOption) (*Notification, error)
 }
 
 type plagiarismClient struct {
-	cc *grpc.ClientConn
+	c           client.Client
+	serviceName string
 }
 
-func NewPlagiarismClient(cc *grpc.ClientConn) PlagiarismClient {
-	return &plagiarismClient{cc}
+func NewPlagiarismClient(serviceName string, c client.Client) PlagiarismClient {
+	if c == nil {
+		c = client.NewClient()
+	}
+	if len(serviceName) == 0 {
+		serviceName = "plagiari.sm.grpc.plagiarism"
+	}
+	return &plagiarismClient{
+		c:           c,
+		serviceName: serviceName,
+	}
 }
 
-func (c *plagiarismClient) Detect(ctx context.Context, in *RequestDocument, opts ...grpc.CallOption) (*Notification, error) {
+func (c *plagiarismClient) Detect(ctx context.Context, in *RequestDocument, opts ...client.CallOption) (*Notification, error) {
+	req := c.c.NewRequest(c.serviceName, "Plagiarism.Detect", in)
 	out := new(Notification)
-	err := grpc.Invoke(ctx, "/plagiari.sm.grpc.plagiarism.Plagiarism/Detect", in, out, c.cc, opts...)
+	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -146,44 +155,21 @@ func (c *plagiarismClient) Detect(ctx context.Context, in *RequestDocument, opts
 
 // Server API for Plagiarism service
 
-type PlagiarismServer interface {
+type PlagiarismHandler interface {
 	// Endpoint Detect
-	Detect(context.Context, *RequestDocument) (*Notification, error)
+	Detect(context.Context, *RequestDocument, *Notification) error
 }
 
-func RegisterPlagiarismServer(s *grpc.Server, srv PlagiarismServer) {
-	s.RegisterService(&_Plagiarism_serviceDesc, srv)
+func RegisterPlagiarismHandler(s server.Server, hdlr PlagiarismHandler, opts ...server.HandlerOption) {
+	s.Handle(s.NewHandler(&Plagiarism{hdlr}, opts...))
 }
 
-func _Plagiarism_Detect_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RequestDocument)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(PlagiarismServer).Detect(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/plagiari.sm.grpc.plagiarism.Plagiarism/Detect",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PlagiarismServer).Detect(ctx, req.(*RequestDocument))
-	}
-	return interceptor(ctx, in, info, handler)
+type Plagiarism struct {
+	PlagiarismHandler
 }
 
-var _Plagiarism_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "plagiari.sm.grpc.plagiarism.Plagiarism",
-	HandlerType: (*PlagiarismServer)(nil),
-	Methods: []grpc.MethodDesc{
-		{
-			MethodName: "Detect",
-			Handler:    _Plagiarism_Detect_Handler,
-		},
-	},
-	Streams:  []grpc.StreamDesc{},
-	Metadata: "grpc_plagiarism.proto",
+func (h *Plagiarism) Detect(ctx context.Context, in *RequestDocument, out *Notification) error {
+	return h.PlagiarismHandler.Detect(ctx, in, out)
 }
 
 func init() { proto.RegisterFile("grpc_plagiarism.proto", fileDescriptor0) }
