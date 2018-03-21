@@ -12,7 +12,7 @@ service Plagiarism {
 // RequestDocument from Elasticsearch
 message RequestDocument {
     // article id
-    int64 id = 1;
+    string id = 1;
 }
 
 // Notification
@@ -26,5 +26,5 @@ message Notification {
     // label
     string label = 4;
     // article id
-    int64 id = 5;
+    string id = 5;
 }
