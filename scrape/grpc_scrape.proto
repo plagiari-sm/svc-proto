@@ -24,6 +24,8 @@ message RequestStream {
     int64 tweetId       = 3;
     string lang         = 4;
     string screenName   = 5;
+    string publishedAt  = 6;
+    string crawledAt    = 7;
 }
 
 // Content of the Scraped Article or Stream
