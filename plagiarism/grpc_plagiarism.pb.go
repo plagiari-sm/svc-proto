@@ -30,7 +30,7 @@ const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
 // RequestDocument from Elasticsearch
 type RequestDocument struct {
 	// article id
-	Id                   string   `protobuf:"bytes,1,opt,name=id" json:"id,omitempty"`
+	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -70,15 +70,15 @@ func (m *RequestDocument) GetId() string {
 // Notification
 type Notification struct {
 	// success, error
-	Status string `protobuf:"bytes,1,opt,name=status" json:"status,omitempty"`
+	Status string `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 	// 200, 500
-	Code int32 `protobuf:"varint,2,opt,name=code" json:"code,omitempty"`
+	Code int32 `protobuf:"varint,2,opt,name=code,proto3" json:"code,omitempty"`
 	// message
-	Message string `protobuf:"bytes,3,opt,name=message" json:"message,omitempty"`
+	Message string `protobuf:"bytes,3,opt,name=message,proto3" json:"message,omitempty"`
 	// label
-	Label string `protobuf:"bytes,4,opt,name=label" json:"label,omitempty"`
+	Label string `protobuf:"bytes,4,opt,name=label,proto3" json:"label,omitempty"`
 	// article id
-	Id                   string   `protobuf:"bytes,5,opt,name=id" json:"id,omitempty"`
+	Id                   string   `protobuf:"bytes,5,opt,name=id,proto3" json:"id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
