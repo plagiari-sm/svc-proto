@@ -1,0 +1,76 @@
+syntax = "proto3";
+
+// Package name (~DNS)
+package plagiari.sm.grpc.compare;
+
+// GRPCCompare Service
+service GRPCCompare {
+    // Endpoint CompareByList
+    rpc CompareByList(List) returns (Response) {};
+    // Endpoint CompareById
+    rpc CompareById(DocId) returns (Response) {};
+    // Endpoint CompareByNewDoc
+    rpc CompareByNewDoc(Article) returns (Response) {};
+}
+
+message Meta {
+    string lang = 1;
+    string country = 2;
+}
+
+message Article {
+    Meta meta = 1;
+    string docId = 2;
+    string title = 3;
+    string url = 4;
+    string publishedAt = 5;
+    string source = 6;
+    string body = 7;
+    repeated string tags = 8;
+}
+
+message List {
+    Article source = 1;
+    repeated Article compare = 2;
+}
+
+message Id {
+    int64 id = 1;
+}
+
+message DocId {
+    string docId = 1;
+}
+
+message Data {
+    bool success = 1;
+    int32 code = 2;
+    message Case {
+        Id metadata = 1;
+        Article data = 2;
+    }
+    Case case = 3;
+    repeated Case related = 4;
+    message Relationship {
+        message Score {
+            float score = 1;
+        }
+        Score data = 1;
+        int64 start = 2;
+        int64 end = 3;
+        Id metadata = 4;
+    }
+    repeated Relationship relationships = 5;
+}
+
+// Response Object
+message Response {
+    // success, error
+    string status   = 1;
+    // 200, 500
+    int32 code      = 2;
+    // message
+    string message  = 3;
+    // data Object {}
+    Data data       = 4;
+}

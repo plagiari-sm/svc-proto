@@ -7,6 +7,7 @@ package plagiari.sm.grpc.plagiarism;
 service Plagiarism {
     // Endpoint Detect
     rpc Detect(RequestDocument) returns (Notification) {};
+    rpc OneToMany(RequestOneToManyDocument) returns (OneToManyResponse) {};
 }
 
 // RequestDocument from Elasticsearch
@@ -27,4 +28,21 @@ message Notification {
     string label = 4;
     // article id
     string id = 5;
+}
+
+message RequestOneToManyDocument {
+    string id = 1;
+    repeated string toCompare = 2;
+}
+
+message OneToManyResponse {
+    repeated Result Result = 1;
+}
+
+message Result {
+    string status = 1;
+    int32 code = 2;
+    string source = 3;
+    string target = 4;
+    double score = 5; 
 }

@@ -29,8 +29,8 @@ const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
 
 // RequestArticle for SimpleScrape
 type RequestArticle struct {
-	Feed                 string   `protobuf:"bytes,1,opt,name=feed" json:"feed,omitempty"`
-	Url                  string   `protobuf:"bytes,2,opt,name=url" json:"url,omitempty"`
+	Feed                 string   `protobuf:"bytes,1,opt,name=feed,proto3" json:"feed,omitempty"`
+	Url                  string   `protobuf:"bytes,2,opt,name=url,proto3" json:"url,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -76,13 +76,13 @@ func (m *RequestArticle) GetUrl() string {
 
 // RequestStream for Scrape in Streaming mode (ex. svc-listen)
 type RequestStream struct {
-	Feed                 string   `protobuf:"bytes,1,opt,name=feed" json:"feed,omitempty"`
-	Url                  string   `protobuf:"bytes,2,opt,name=url" json:"url,omitempty"`
-	TweetId              int64    `protobuf:"varint,3,opt,name=tweetId" json:"tweetId,omitempty"`
-	Lang                 string   `protobuf:"bytes,4,opt,name=lang" json:"lang,omitempty"`
-	ScreenName           string   `protobuf:"bytes,5,opt,name=screenName" json:"screenName,omitempty"`
-	PublishedAt          string   `protobuf:"bytes,6,opt,name=publishedAt" json:"publishedAt,omitempty"`
-	CrawledAt            string   `protobuf:"bytes,7,opt,name=crawledAt" json:"crawledAt,omitempty"`
+	Feed                 string   `protobuf:"bytes,1,opt,name=feed,proto3" json:"feed,omitempty"`
+	Url                  string   `protobuf:"bytes,2,opt,name=url,proto3" json:"url,omitempty"`
+	TweetId              int64    `protobuf:"varint,3,opt,name=tweetId,proto3" json:"tweetId,omitempty"`
+	Lang                 string   `protobuf:"bytes,4,opt,name=lang,proto3" json:"lang,omitempty"`
+	ScreenName           string   `protobuf:"bytes,5,opt,name=screenName,proto3" json:"screenName,omitempty"`
+	PublishedAt          string   `protobuf:"bytes,6,opt,name=publishedAt,proto3" json:"publishedAt,omitempty"`
+	CrawledAt            string   `protobuf:"bytes,7,opt,name=crawledAt,proto3" json:"crawledAt,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -163,15 +163,15 @@ func (m *RequestStream) GetCrawledAt() string {
 
 // Content of the Scraped Article or Stream
 type Content struct {
-	Title                string   `protobuf:"bytes,1,opt,name=title" json:"title,omitempty"`
-	Excerpt              string   `protobuf:"bytes,2,opt,name=excerpt" json:"excerpt,omitempty"`
-	Body                 string   `protobuf:"bytes,3,opt,name=body" json:"body,omitempty"`
-	Authors              []string `protobuf:"bytes,4,rep,name=authors" json:"authors,omitempty"`
-	Sources              []string `protobuf:"bytes,5,rep,name=sources" json:"sources,omitempty"`
-	Tags                 []string `protobuf:"bytes,6,rep,name=tags" json:"tags,omitempty"`
-	Categories           []string `protobuf:"bytes,7,rep,name=categories" json:"categories,omitempty"`
-	PublishedAt          string   `protobuf:"bytes,8,opt,name=publishedAt" json:"publishedAt,omitempty"`
-	EditedAt             string   `protobuf:"bytes,9,opt,name=editedAt" json:"editedAt,omitempty"`
+	Title                string   `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty"`
+	Excerpt              string   `protobuf:"bytes,2,opt,name=excerpt,proto3" json:"excerpt,omitempty"`
+	Body                 string   `protobuf:"bytes,3,opt,name=body,proto3" json:"body,omitempty"`
+	Authors              []string `protobuf:"bytes,4,rep,name=authors,proto3" json:"authors,omitempty"`
+	Sources              []string `protobuf:"bytes,5,rep,name=sources,proto3" json:"sources,omitempty"`
+	Tags                 []string `protobuf:"bytes,6,rep,name=tags,proto3" json:"tags,omitempty"`
+	Categories           []string `protobuf:"bytes,7,rep,name=categories,proto3" json:"categories,omitempty"`
+	PublishedAt          string   `protobuf:"bytes,8,opt,name=publishedAt,proto3" json:"publishedAt,omitempty"`
+	EditedAt             string   `protobuf:"bytes,9,opt,name=editedAt,proto3" json:"editedAt,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -266,8 +266,8 @@ func (m *Content) GetEditedAt() string {
 
 // NLP data of the Scraped Article or Stream
 type NLP struct {
-	Tokens               []string `protobuf:"bytes,1,rep,name=tokens" json:"tokens,omitempty"`
-	StopWords            []string `protobuf:"bytes,2,rep,name=stopWords" json:"stopWords,omitempty"`
+	Tokens               []string `protobuf:"bytes,1,rep,name=tokens,proto3" json:"tokens,omitempty"`
+	StopWords            []string `protobuf:"bytes,2,rep,name=stopWords,proto3" json:"stopWords,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -313,8 +313,8 @@ func (m *NLP) GetStopWords() []string {
 
 // Data for the Response Object
 type Data struct {
-	Content              *Content `protobuf:"bytes,1,opt,name=content" json:"content,omitempty"`
-	Nlp                  *NLP     `protobuf:"bytes,2,opt,name=nlp" json:"nlp,omitempty"`
+	Content              *Content `protobuf:"bytes,1,opt,name=content,proto3" json:"content,omitempty"`
+	Nlp                  *NLP     `protobuf:"bytes,2,opt,name=nlp,proto3" json:"nlp,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -361,13 +361,13 @@ func (m *Data) GetNlp() *NLP {
 // Response Object
 type Response struct {
 	// success, error
-	Status string `protobuf:"bytes,1,opt,name=status" json:"status,omitempty"`
+	Status string `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 	// 200, 500
-	Code int32 `protobuf:"varint,2,opt,name=code" json:"code,omitempty"`
+	Code int32 `protobuf:"varint,2,opt,name=code,proto3" json:"code,omitempty"`
 	// message
-	Message string `protobuf:"bytes,3,opt,name=message" json:"message,omitempty"`
+	Message string `protobuf:"bytes,3,opt,name=message,proto3" json:"message,omitempty"`
 	// data Object {}
-	Data                 *Data    `protobuf:"bytes,4,opt,name=data" json:"data,omitempty"`
+	Data                 *Data    `protobuf:"bytes,4,opt,name=data,proto3" json:"data,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
