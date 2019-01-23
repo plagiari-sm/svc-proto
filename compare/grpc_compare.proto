@@ -42,24 +42,27 @@ message DocId {
     string docId = 1;
 }
 
+message Case {
+    Id metadata = 1;
+    Article data = 2;
+}
+
+message Score {
+    double score = 1;
+}
+
+message Relationship {
+    Score data = 1;
+    string start = 2;
+    string end = 3;
+    Id metadata = 4;
+}
+
 message Data {
     bool success = 1;
     int32 code = 2;
-    message Case {
-        Id metadata = 1;
-        Article data = 2;
-    }
     Case case = 3;
     repeated Case related = 4;
-    message Relationship {
-        message Score {
-            float score = 1;
-        }
-        Score data = 1;
-        int64 start = 2;
-        int64 end = 3;
-        Id metadata = 4;
-    }
     repeated Relationship relationships = 5;
 }
 
