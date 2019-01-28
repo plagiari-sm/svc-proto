@@ -19,19 +19,23 @@ message Meta {
 }
 
 message Article {
+    // Language Model Selection
     Meta meta = 1;
+    // Required Values
     string docId = 2;
-    string title = 3;
-    string url = 4;
-    string publishedAt = 5;
-    string source = 6;
-    string body = 7;
+    string publishedAt = 3;
+    string body = 4;
+    // Optional Values
+    string title = 5;
+    string url = 6;
+    string source = 7;
     repeated string tags = 8;
 }
 
 message List {
-    Article source = 1;
+    Article case = 1;
     repeated Article compare = 2;
+    bool deep = 3;
 }
 
 message Id {
@@ -43,27 +47,24 @@ message DocId {
 }
 
 message Case {
-    Id metadata = 1;
+    string nodeId = 1;
     Article data = 2;
 }
 
 message Score {
-    double score = 1;
+    float score = 1;
 }
 
 message Relationship {
     Score data = 1;
     string start = 2;
     string end = 3;
-    Id metadata = 4;
 }
 
 message Data {
-    bool success = 1;
-    int32 code = 2;
-    Case case = 3;
-    repeated Case related = 4;
-    repeated Relationship relationships = 5;
+    Case case = 1;
+    repeated Case related = 2;
+    repeated Relationship relationships = 3;
 }
 
 // Response Object
