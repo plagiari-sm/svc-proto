@@ -15,35 +15,31 @@ service GRPCScrape {
 message RequestArticle {
     string feed     = 1;
     string url      = 2;
+    string lang     = 3;
 }
 
 // RequestStream for Scrape in Streaming mode (ex. svc-listen)
 message RequestStream {
     string feed         = 1;
     string url          = 2;
-    int64 tweetId       = 3;
+    string tweetId      = 3;
     string lang         = 4;
     string screenName   = 5;
-    string publishedAt  = 6;
-    string crawledAt    = 7;
+    string crawledAt    = 6;
 }
 
 // Content of the Scraped Article or Stream
 message Content {
     string title                = 1;
-    string excerpt              = 2;
-    string body                 = 3;
-    repeated string authors     = 4;
-    repeated string sources     = 5;
-    repeated string tags        = 6;
-    repeated string categories  = 7;
-    string publishedAt          = 8;
-    string editedAt             = 9;
+    string body                 = 2;
+    repeated string authors     = 3;
+    repeated string tags        = 4;
+    string publishedAt          = 5;
 }
 
 // NLP data of the Scraped Article or Stream
 message NLP {
-    repeated string tokens      = 1;
+    repeated string keywords   = 1;
     repeated string stopWords  = 2;
 }
 
