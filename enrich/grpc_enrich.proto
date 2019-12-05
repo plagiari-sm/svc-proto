@@ -12,10 +12,16 @@ message Request {
     string lang = 2;
 }
 
+message Entity {
+    string entity_text = 1;
+    string entity_type = 2;
+}
+
 message NLP {
     repeated string stopwords  = 1;
     repeated string keywords = 2;
-    repeated string topics = 3;
+    repeated Entity entities = 3;
+    repeated string topics = 4;
 }
 
 message Data {
