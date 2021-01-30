@@ -9,7 +9,11 @@ service GRPCScrape {
     rpc Scrape(RequestStream) returns (Response) {};
     // Endpoint SimpleScrape
     rpc SimpleScrape(RequestArticle) returns (Response) {};
+    // Endpoint ReloadPassages 
+    rpc ReloadPassages(Empty) returns(Response) {};
 }
+
+message Empty {};
 
 // RequestArticle for SimpleScrape
 message RequestArticle {
