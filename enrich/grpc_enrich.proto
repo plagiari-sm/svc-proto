@@ -1,7 +1,8 @@
 syntax = "proto3";
 
 // Package name (~DNS)
-package mediawatch.io.enrich;
+package enrich;
+option go_package = "enrich;enrich";
 
 service Enrich {
     rpc NLP(Request) returns (Response) {};
@@ -21,8 +22,9 @@ message NLP {
     repeated string stopwords  = 1;
     repeated string keywords = 2;
     repeated Entity entities = 3;
-    repeated string topics = 4;
-}
+    string summary = 4;
+    repeated string topics = 5;
+}   
 
 message Data {
     NLP  nlp        = 1;
