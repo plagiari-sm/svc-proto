@@ -62,7 +62,7 @@ func (c *gRPCCompareClient) CompareByNewDoc(ctx context.Context, in *Article, op
 }
 
 // GRPCCompareServer is the server API for GRPCCompare service.
-// All implementations must embed UnimplementedGRPCCompareServer
+// All implementations should embed UnimplementedGRPCCompareServer
 // for forward compatibility
 type GRPCCompareServer interface {
 	// Endpoint CompareByList
@@ -71,10 +71,9 @@ type GRPCCompareServer interface {
 	CompareById(context.Context, *DocId) (*Response, error)
 	// Endpoint CompareByNewDoc
 	CompareByNewDoc(context.Context, *Article) (*Response, error)
-	mustEmbedUnimplementedGRPCCompareServer()
 }
 
-// UnimplementedGRPCCompareServer must be embedded to have forward compatible implementations.
+// UnimplementedGRPCCompareServer should be embedded to have forward compatible implementations.
 type UnimplementedGRPCCompareServer struct {
 }
 
@@ -87,7 +86,6 @@ func (UnimplementedGRPCCompareServer) CompareById(context.Context, *DocId) (*Res
 func (UnimplementedGRPCCompareServer) CompareByNewDoc(context.Context, *Article) (*Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CompareByNewDoc not implemented")
 }
-func (UnimplementedGRPCCompareServer) mustEmbedUnimplementedGRPCCompareServer() {}
 
 // UnsafeGRPCCompareServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to GRPCCompareServer will

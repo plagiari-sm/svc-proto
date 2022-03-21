@@ -50,16 +50,15 @@ func (c *plagiarismClient) OneToMany(ctx context.Context, in *RequestOneToManyDo
 }
 
 // PlagiarismServer is the server API for Plagiarism service.
-// All implementations must embed UnimplementedPlagiarismServer
+// All implementations should embed UnimplementedPlagiarismServer
 // for forward compatibility
 type PlagiarismServer interface {
 	// Endpoint Detect
 	Detect(context.Context, *RequestDocument) (*Notification, error)
 	OneToMany(context.Context, *RequestOneToManyDocument) (*OneToManyResponse, error)
-	mustEmbedUnimplementedPlagiarismServer()
 }
 
-// UnimplementedPlagiarismServer must be embedded to have forward compatible implementations.
+// UnimplementedPlagiarismServer should be embedded to have forward compatible implementations.
 type UnimplementedPlagiarismServer struct {
 }
 
@@ -69,7 +68,6 @@ func (UnimplementedPlagiarismServer) Detect(context.Context, *RequestDocument) (
 func (UnimplementedPlagiarismServer) OneToMany(context.Context, *RequestOneToManyDocument) (*OneToManyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method OneToMany not implemented")
 }
-func (UnimplementedPlagiarismServer) mustEmbedUnimplementedPlagiarismServer() {}
 
 // UnsafePlagiarismServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to PlagiarismServer will

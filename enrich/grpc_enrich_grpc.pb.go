@@ -19,6 +19,13 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type EnrichClient interface {
 	NLP(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)
+	StopWords(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)
+	Keywords(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)
+	Entities(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)
+	Summary(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)
+	Topics(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)
+	Quotes(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)
+	Claims(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)
 }
 
 type enrichClient struct {
@@ -38,22 +45,111 @@ func (c *enrichClient) NLP(ctx context.Context, in *Request, opts ...grpc.CallOp
 	return out, nil
 }
 
+func (c *enrichClient) StopWords(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error) {
+	out := new(Response)
+	err := c.cc.Invoke(ctx, "/enrich.Enrich/StopWords", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *enrichClient) Keywords(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error) {
+	out := new(Response)
+	err := c.cc.Invoke(ctx, "/enrich.Enrich/Keywords", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *enrichClient) Entities(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error) {
+	out := new(Response)
+	err := c.cc.Invoke(ctx, "/enrich.Enrich/Entities", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *enrichClient) Summary(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error) {
+	out := new(Response)
+	err := c.cc.Invoke(ctx, "/enrich.Enrich/Summary", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *enrichClient) Topics(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error) {
+	out := new(Response)
+	err := c.cc.Invoke(ctx, "/enrich.Enrich/Topics", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *enrichClient) Quotes(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error) {
+	out := new(Response)
+	err := c.cc.Invoke(ctx, "/enrich.Enrich/Quotes", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *enrichClient) Claims(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error) {
+	out := new(Response)
+	err := c.cc.Invoke(ctx, "/enrich.Enrich/Claims", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // EnrichServer is the server API for Enrich service.
-// All implementations must embed UnimplementedEnrichServer
+// All implementations should embed UnimplementedEnrichServer
 // for forward compatibility
 type EnrichServer interface {
 	NLP(context.Context, *Request) (*Response, error)
-	mustEmbedUnimplementedEnrichServer()
+	StopWords(context.Context, *Request) (*Response, error)
+	Keywords(context.Context, *Request) (*Response, error)
+	Entities(context.Context, *Request) (*Response, error)
+	Summary(context.Context, *Request) (*Response, error)
+	Topics(context.Context, *Request) (*Response, error)
+	Quotes(context.Context, *Request) (*Response, error)
+	Claims(context.Context, *Request) (*Response, error)
 }
 
-// UnimplementedEnrichServer must be embedded to have forward compatible implementations.
+// UnimplementedEnrichServer should be embedded to have forward compatible implementations.
 type UnimplementedEnrichServer struct {
 }
 
 func (UnimplementedEnrichServer) NLP(context.Context, *Request) (*Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method NLP not implemented")
 }
-func (UnimplementedEnrichServer) mustEmbedUnimplementedEnrichServer() {}
+func (UnimplementedEnrichServer) StopWords(context.Context, *Request) (*Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method StopWords not implemented")
+}
+func (UnimplementedEnrichServer) Keywords(context.Context, *Request) (*Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Keywords not implemented")
+}
+func (UnimplementedEnrichServer) Entities(context.Context, *Request) (*Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Entities not implemented")
+}
+func (UnimplementedEnrichServer) Summary(context.Context, *Request) (*Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Summary not implemented")
+}
+func (UnimplementedEnrichServer) Topics(context.Context, *Request) (*Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Topics not implemented")
+}
+func (UnimplementedEnrichServer) Quotes(context.Context, *Request) (*Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Quotes not implemented")
+}
+func (UnimplementedEnrichServer) Claims(context.Context, *Request) (*Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Claims not implemented")
+}
 
 // UnsafeEnrichServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to EnrichServer will
@@ -84,6 +180,132 @@ func _Enrich_NLP_Handler(srv interface{}, ctx context.Context, dec func(interfac
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Enrich_StopWords_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Request)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EnrichServer).StopWords(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/enrich.Enrich/StopWords",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EnrichServer).StopWords(ctx, req.(*Request))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Enrich_Keywords_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Request)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EnrichServer).Keywords(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/enrich.Enrich/Keywords",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EnrichServer).Keywords(ctx, req.(*Request))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Enrich_Entities_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Request)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EnrichServer).Entities(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/enrich.Enrich/Entities",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EnrichServer).Entities(ctx, req.(*Request))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Enrich_Summary_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Request)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EnrichServer).Summary(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/enrich.Enrich/Summary",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EnrichServer).Summary(ctx, req.(*Request))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Enrich_Topics_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Request)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EnrichServer).Topics(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/enrich.Enrich/Topics",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EnrichServer).Topics(ctx, req.(*Request))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Enrich_Quotes_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Request)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EnrichServer).Quotes(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/enrich.Enrich/Quotes",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EnrichServer).Quotes(ctx, req.(*Request))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Enrich_Claims_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Request)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EnrichServer).Claims(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/enrich.Enrich/Claims",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EnrichServer).Claims(ctx, req.(*Request))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Enrich_ServiceDesc is the grpc.ServiceDesc for Enrich service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -94,6 +316,34 @@ var Enrich_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "NLP",
 			Handler:    _Enrich_NLP_Handler,
+		},
+		{
+			MethodName: "StopWords",
+			Handler:    _Enrich_StopWords_Handler,
+		},
+		{
+			MethodName: "Keywords",
+			Handler:    _Enrich_Keywords_Handler,
+		},
+		{
+			MethodName: "Entities",
+			Handler:    _Enrich_Entities_Handler,
+		},
+		{
+			MethodName: "Summary",
+			Handler:    _Enrich_Summary_Handler,
+		},
+		{
+			MethodName: "Topics",
+			Handler:    _Enrich_Topics_Handler,
+		},
+		{
+			MethodName: "Quotes",
+			Handler:    _Enrich_Quotes_Handler,
+		},
+		{
+			MethodName: "Claims",
+			Handler:    _Enrich_Claims_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

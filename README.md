@@ -1,7 +1,10 @@
 # svc-proto
-plagiari.sm Proto Buffers. Make sure you use protoc 3.14.0.
+MediaWatch protocol buffers.
 
 ## Build the proto files
 ```bash
-$ make build
+# install buf (v1.1.0)
+make buf-install
+# build proto
+make proto
 ```

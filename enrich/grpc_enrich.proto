@@ -5,7 +5,14 @@ package enrich;
 option go_package = "enrich;enrich";
 
 service Enrich {
-    rpc NLP(Request) returns (Response) {};
+    rpc NLP         (Request) returns (Response) {};
+    rpc StopWords   (Request) returns (Response) {};
+    rpc Keywords    (Request) returns (Response) {};
+    rpc Entities    (Request) returns (Response) {};
+    rpc Summary     (Request) returns (Response) {};
+    rpc Topics      (Request) returns (Response) {};
+    rpc Quotes      (Request) returns (Response) {};
+    rpc Claims      (Request) returns (Response) {};
 }
 
 message Request {
@@ -24,6 +31,8 @@ message NLP {
     repeated Entity entities = 3;
     string summary = 4;
     repeated string topics = 5;
+    repeated string claims = 6;
+    repeated string quotes = 7;
 }   
 
 message Data {

@@ -62,7 +62,7 @@ func (c *gRPCScrapeClient) ReloadPassages(ctx context.Context, in *Empty, opts .
 }
 
 // GRPCScrapeServer is the server API for GRPCScrape service.
-// All implementations must embed UnimplementedGRPCScrapeServer
+// All implementations should embed UnimplementedGRPCScrapeServer
 // for forward compatibility
 type GRPCScrapeServer interface {
 	// Endpoint Scrape
@@ -71,10 +71,9 @@ type GRPCScrapeServer interface {
 	SimpleScrape(context.Context, *RequestArticle) (*Response, error)
 	// Endpoint ReloadPassages
 	ReloadPassages(context.Context, *Empty) (*Response, error)
-	mustEmbedUnimplementedGRPCScrapeServer()
 }
 
-// UnimplementedGRPCScrapeServer must be embedded to have forward compatible implementations.
+// UnimplementedGRPCScrapeServer should be embedded to have forward compatible implementations.
 type UnimplementedGRPCScrapeServer struct {
 }
 
@@ -87,7 +86,6 @@ func (UnimplementedGRPCScrapeServer) SimpleScrape(context.Context, *RequestArtic
 func (UnimplementedGRPCScrapeServer) ReloadPassages(context.Context, *Empty) (*Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ReloadPassages not implemented")
 }
-func (UnimplementedGRPCScrapeServer) mustEmbedUnimplementedGRPCScrapeServer() {}
 
 // UnsafeGRPCScrapeServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to GRPCScrapeServer will
